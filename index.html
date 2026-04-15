@@ -3,91 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi CV Interactivo</title>
+    <title>Ticket de Proyecto - Análisis de Gastos</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
+            --paper-color: #fdfdfd;
+            --ink-color: #1a1a1a;
+            --secondary-ink: #444;
+            --shadow: rgba(0, 0, 0, 0.2);
         }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            line-height: 1.6;
+            background-color: #cfcfcf;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--ink-color);
+            display: flex;
+            justify-content: center;
+            padding: 50px 20px;
             margin: 0;
-            background: var(--light);
-            color: var(--dark);
         }
-        header {
-            background: var(--dark);
-            color: white;
-            padding: 3rem 1rem;
+
+        /* Contenedor principal estilo ticket */
+        .ticket {
+            background-color: var(--paper-color);
+            width: 100%;
+            max-width: 500px;
+            padding: 35px 25px;
+            box-shadow: 0 15px 35px var(--shadow);
+            position: relative;
+            border-left: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        /* Bordes serrados arriba y abajo */
+        .ticket::before, .ticket::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background-size: 20px 24px;
+            z-index: 10;
+        }
+
+        .ticket::before {
+            top: -12px;
+            background-image: radial-gradient(circle at 10px -4px, transparent 10px, var(--paper-color) 11px);
+        }
+
+        .ticket::after {
+            bottom: -12px;
+            background-image: radial-gradient(circle at 10px 16px, transparent 10px, var(--paper-color) 11px);
+        }
+
+        /* Cabecera */
+        .header {
             text-align: center;
+            margin-bottom: 30px;
         }
-        .container {
-            max-width: 800px;
-            margin: -50px auto 20px;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin: 0;
+            letter-spacing: 2px;
+            font-weight: 900;
+            text-transform: uppercase;
         }
-        h2 {
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 5px;
-            color: var(--primary);
+
+        .header p {
+            margin: 4px 0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
         }
-        .skill-tag {
-            display: inline-block;
-            background: #e2e8f0;
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            transition: transform 0.3s;
+
+        .separator {
+            border-top: 1px dashed var(--ink-color);
+            margin: 20px 0;
         }
-        .skill-tag:hover {
-            transform: scale(1.1);
-            background: var(--primary);
-            color: white;
+
+        /* Secciones */
+        .section {
+            margin-bottom: 30px;
         }
-        .contact-btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 10px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
+
+        .section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--ink-color);
+            padding-bottom: 4px;
+            font-size: 1.1rem;
         }
+
+        .content-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            text-align: justify;
+            color: var(--secondary-ink);
+            white-space: pre-line; /* Mantiene saltos de línea del doc */
+        }
+
+        /* Diccionario de Datos */
+        .dictionary-item {
+            margin-bottom: 15px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-bottom: 1px dotted #999;
+            margin-bottom: 5px;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: #555;
+            padding-left: 10px;
+            font-style: italic;
+        }
+
+        /* Totales */
+        .total-box {
+            margin-top: 40px;
+            border-top: 2px solid var(--ink-color);
+            padding-top: 15px;
+        }
+
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+        }
+
+        .barcode {
+            margin: 20px auto;
+            width: 90%;
+            height: 50px;
+            background: linear-gradient(90deg, 
+                #000 0%, #000 3%, transparent 3%, transparent 4%, 
+                #000 4%, #000 6%, transparent 6%, transparent 8%,
+                #000 8%, #000 12%, transparent 12%, transparent 14%,
+                #000 14%, #000 20%, transparent 20%, transparent 22%,
+                #000 22%, #000 25%, transparent 25%, transparent 30%,
+                #000 30%, #000 45%, transparent 45%, transparent 48%,
+                #000 48%, #000 50%, transparent 50%, transparent 55%,
+                #000 55%, #000 70%, transparent 70%, transparent 72%,
+                #000 72%, #000 75%, transparent 75%, transparent 80%,
+                #000 80%, #000 95%, transparent 95%, transparent 97%,
+                #000 97%, #000 100%);
+        }
+
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Tu Nombre Aquí</h1>
-    <p>Tu Profesión o Especialidad</p>
-</header>
-
-<div class="container">
-    <section>
-        <h2>Sobre mí</h2>
-        <p>Hola, soy un profesional apasionado por... (Aquí irá tu descripción).</p>
-    </section>
-
-    <section>
-        <h2>Habilidades</h2>
-        <div id="skills">
-            <span class="skill-tag">Liderazgo</span>
-            <span class="skill-tag">Resolución de problemas</span>
-            <span class="skill-tag">Tecnología</span>
+    <div class="ticket">
+        <div class="header">
+            <h1>GASTRO-DATA PROJECT</h1>
+            <p>ESTUDIO DE CONSUMO FAMILIAR</p>
+            <p>CASO: FAMILIA DE 4 INTEGRANTES</p>
+            <div class="separator"></div>
+            <p>FECHA DE EMISIÓN: 21/04/2026</p>
+            <p>AUTOR: ESTUDIANTE DE GASTRONOMÍA</p>
         </div>
-    </section>
 
-    <section>
-        <h2>Contacto</h2>
-        <p>¿Te interesa mi perfil? ¡Hablemos!</p>
-        <a href="mailto:tu@correo.com" class="contact-btn">Enviar Correo</a>
-    </section>
-</div>
+        <!-- 1. INTRODUCCIÓN -->
+        <div class="section">
+            <span class="section-title">01. INTRODUCCIÓN</span>
+            <div class="content-text">
+                Soy estudiante de Gastronomía y, poco a poco, me estoy introduciendo de manera autodidacta en el análisis de datos. Por ello, he decidido transformar la gestión de compras de supermercado de una familia en un caso de estudio profesional. 
+
+                Este proyecto nace realmente por diversión: me apasiona planificar los menús semanales, diseñar listas de compra eficientes y seleccionar los mejores ingredientes en el súper. He descubierto que combinar esta afición con los datos me motiva muchísimo, ya que me permite darle un sentido lógico y analítico a algo que disfruto hacer cada día, convirtiendo la rutina de compra en una oportunidad para generar valor y ahorro.
+            </div>
+        </div>
+
+        <!-- 2. PROBLEMA Y OBJETIVOS -->
+        <div class="section">
+            <span class="section-title">02. PROBLEMA Y OBJETIVOS</span>
+            <div class="content-text">
+                Llevar el control de los gastos de una casa no es fácil si una vez hacemos la compra tiramos el ticket. El problema principal es que no vemos el detalle de nuestras compras, lo que hace que no sepamos con exactitud cuánto han subido productos básicos en los últimos meses, qué supermercado nos conviene más para cada categoría de producto o cuánto dinero gastamos en caprichos. 
+
+                Todo esto deriva en una falta de organización que nos lleva a comprar cosas que quizá ya tenemos o a gastar de más por no tener una visión clara del presupuesto. El objetivo de este análisis es transformar esos tickets olvidados en información accionable para optimizar la economía familiar.
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- 3. DICCIONARIO DE DATOS -->
+        <div class="section">
+            <span class="section-title">03. DICCIONARIO DE DATOS</span>
+            
+            <div class="dictionary-item">
+                <div class="item-header"><span>Día de la semana</span><span>DATO</span></div>
+                <div class="item-desc">Permite saber en qué día de la semana se realiza la compra. Esto permite detectar patrones para descubrir si por ejemplo el fin de semana se gasta más o si hay un día concreto en el que se va más al supermercado.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Supermercado</span><span>ORIGEN</span></div>
+                <div class="item-desc">Especifica el establecimiento donde se realiza la compra. Esto permite evaluar qué cadena de supermercados concentra el mayor gasto familiar.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Nombre del producto</span><span>ITEM</span></div>
+                <div class="item-desc">Describe cada artículo de forma individual tal como aparece en el ticket de compra. Permite rastrear la frecuencia de consumo de productos específicos y controlar la evolución de sus precios.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Cantidad</span><span>CANT.</span></div>
+                <div class="item-desc">Indica el número de unidades adquiridas de un mismo producto en una sola fila. Ayuda a distinguir si un ticket alto se debe al precio del producto o a un gran volumen de compra.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Precio unitario</span><span>VALOR U.</span></div>
+                <div class="item-desc">Refleja el coste de referencia por unidad o por kilo en el estante del supermercado. Es la métrica esencial para medir la inflación real de los alimentos independientemente de cuánto se compre.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Precio total</span><span>TOTAL L.</span></div>
+                <div class="item-desc">Representa el gasto final pagado por esa línea del ticket tras aplicar la cantidad. Es la métrica principal para calcular el desembolso real y el impacto en la economía del hogar.</div>
+            </div>
+
+            <div class="dictionary-item">
+                <div class="item-header"><span>Categoría</span><span>GRUPO</span></div>
+                <div class="item-desc">Clasifica los productos en grupos lógicos como carnicería, lácteos o limpieza. Facilita el análisis estructural para ver en qué áreas de la alimentación se invierte la mayor parte del dinero.</div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- TOTALES -->
+        <div class="total-box">
+            <div class="total-item">
+                <span>ESTADO DEL PROYECTO</span>
+                <span>EN CURSO</span>
+            </div>
+            <div class="total-item" style="font-size: 0.9rem; margin-top: 5px;">
+                <span>CALIDAD DE LA DATA</span>
+                <span>ALTA</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="barcode"></div>
+            <p>SEC: 589-ANALYSIS-2026</p>
+            <div class="separator" style="margin: 15px 0;"></div>
+            <p>*** GRACIAS POR LEER EL REPORTE ***</p>
+            <p>LA GASTRONOMÍA TAMBIÉN SON DATOS</p>
+        </div>
+    </div>
 
 </body>
 </html>

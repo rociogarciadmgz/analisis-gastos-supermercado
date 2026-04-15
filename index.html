@@ -3,125 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Gastos - Ticket del Proyecto</title>
+    <title>Análisis de Gastos de Supermercado</title>
     <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
+        :root {
+            --ticket-bg: #ffffff;
+            --body-bg: #2c3e50; /* Fondo oscuro para resaltar el ticket */
+            --font-main: 'Courier New', Courier, monospace;
         }
 
-        .ticket {
-            background-color: #fff;
-            width: 400px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            position: relative;
-            border-bottom: 5px dashed #ccc;
+        body {
+            background-color: var(--body-bg);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
         }
+
+        .ticket-container {
+            background-color: var(--ticket-bg);
+            width: 100%;
+            max-width: 900px; /* Ocupa más espacio en pantalla */
+            min-height: 100vh;
+            padding: 60px 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            color: #1a1a1a;
+        }
+
+        /* Efecto de borde zigzag (arriba y abajo) */
+        .ticket-container::before, .ticket-container::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: linear-gradient(-45deg, var(--body-bg) 8px, transparent 0), 
+                        linear-gradient(45deg, var(--body-bg) 8px, transparent 0);
+            background-size: 16px 16px;
+        }
+        .ticket-container::before { top: 0; }
+        .ticket-container::after { bottom: 0; transform: rotate(180deg); }
 
         .header {
             text-align: center;
-            border-bottom: 1px dashed #000;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            border-bottom: 2px dashed #000;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
         }
 
-        .header h1 {
-            font-size: 1.2rem;
-            margin: 0;
-            text-transform: uppercase;
-        }
+        h1 { font-size: 2.2rem; margin: 0 0 10px 0; letter-spacing: 2px; }
+        .subtitle { font-size: 1.1rem; margin-bottom: 5px; }
 
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        .section-title {
-            text-transform: uppercase;
-            font-weight: bold;
+        h2 {
             border-bottom: 1px solid #000;
-            margin-bottom: 10px;
-            display: block;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-transform: uppercase;
         }
 
-        .content {
-            font-size: 0.9rem;
-            line-height: 1.2;
-            text-align: justify;
+        p { line-height: 1.6; font-size: 1.1rem; text-align: justify; }
+
+        /* Estilo para el Diccionario de Datos como si fueran items de compra */
+        .data-table {
+            width: 100%;
+            margin-top: 20px;
         }
 
-        .item-row {
+        .data-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            align-items: baseline;
+            margin-bottom: 15px;
+            border-bottom: 1px dotted #ccc;
         }
 
-        .footer {
+        .data-key {
+            font-weight: bold;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            margin-right: 15px;
+        }
+
+        .data-value {
+            text-align: right;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .divider {
+            border-top: 2px dashed #000;
+            margin: 30px 0;
+        }
+
+        .total-section {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        .barcode {
             text-align: center;
-            margin-top: 30px;
-            border-top: 1px dashed #000;
-            padding-top: 10px;
-            font-size: 0.8rem;
-        }
-
-        /* Efecto de papel térmico */
-        .ticket::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(-45deg, #f0f0f0 5px, transparent 0), 
-                        linear-gradient(45deg, #f0f0f0 5px, transparent 0);
-            background-size: 10px 10px;
+            margin-top: 50px;
+            font-family: 'Libre Barcode 39', sans-serif; /* Si tienes la fuente, si no se verá normal */
+            font-size: 3rem;
         }
     </style>
 </head>
 <body>
 
-<div class="ticket">
-    <div class="header">
-        <h1>Análisis de Gastos</h1>
-        <p>CASO DE ESTUDIO PROFESIONAL</p>
-        <p>Estudiante: Gastronomía & Datos</p>
-    </div>
-
-    <div class="section">
-        <span class="section-title">1. INTRODUCCIÓN</span>
-        <p class="content">
-            Este proyecto transforma la gestión de compras de una familia en un análisis de valor[cite: 13]. 
-            Nace de la pasión por planificar menús eficientes y dar sentido lógico a la rutina diaria[cite: 14, 15].
-        </p>
-    </div>
-
-    <div class="section">
-        <span class="section-title">2. EL PROBLEMA</span>
-        <p class="content">
-            Sin un registro, no vemos el detalle de las compras ni la subida de precios básicos[cite: 18]. 
-            La falta de organización nos lleva a gastar de más o comprar duplicados[cite: 19].
-        </p>
-    </div>
-
-    <div class="section">
-        <span class="section-title">3. OBJETIVO PRINCIPAL</span>
-        <div class="item-row">
-            <span>GESTIÓN INTELIGENTE</span>
-            <span>100%</span>
+    <div class="ticket-container">
+        <div class="header">
+            <h1>GASTRO-ANALYSIS SV</h1>
+            <div class="subtitle">PROYECTO: GASTOS FAMILIARES</div>
+            <div class="subtitle">FECHA: 15/04/2024</div>
+            <div class="subtitle">CLIENTE: FAMILIA 4 INTEGRANTES</div>
         </div>
-        <p class="content">
-            Optimizar el presupuesto de una familia de cuatro integrantes mediante el análisis de datos.
-        </p>
-    </div>
 
-    <div class="footer">
-        <p>*** GRACIAS POR ANALIZAR ***</p>
-        <p>2026 - Proyecto Autodidacta</p>
+        <div class="section">
+            <h2>01. DEFINICIÓN Y OBJETIVOS</h2>
+            <p>
+                Este proyecto surge de la necesidad de transformar la gestión de compras de supermercado en un caso de estudio profesional. 
+                Combinando la pasión por la gastronomía y la planificación de menús con el análisis de datos, buscamos optimizar decisiones cotidianas 
+                y generar un ahorro real mediante el control de la inflación y la selección inteligente de productos.
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2>02. DICCIONARIO DE DATOS</h2>
+            <p>A continuación se detallan las variables capturadas de cada ticket de compra:</p>
+            
+            <div class="data-table">
+                <div class="data-row">
+                    <span class="data-key">ID COMPRA</span>
+                    <span class="data-value">Identificador único para cada transacción.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">FECHA</span>
+                    <span class="data-value">Día, mes y año de la compra.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">DÍA SEMANA</span>
+                    <span class="data-value">Detecta patrones de consumo (ej. fines de semana).</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">SUPERMERCADO</span>
+                    <span class="data-value">Establecimiento donde se realiza el gasto.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">NOMBRE PRODUCTO</span>
+                    <span class="data-value">Descripción individual según aparece en el ticket.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">CANTIDAD</span>
+                    <span class="data-value">Unidades o peso adquirido de cada artículo.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">PRECIO UNITARIO</span>
+                    <span class="data-value">Coste por unidad/kilo (métrica de inflación real).</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">PRECIO TOTAL</span>
+                    <span class="data-value">Gasto final pagado por esa línea del ticket.</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-key">CATEGORÍA</span>
+                    <span class="data-value">Carnicería, lácteos, limpieza, etc.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2>03. PROCESAMIENTO</h2>
+            <p>
+                Los datos han sido extraídos directamente de tickets físicos y procesados para eliminar duplicados, 
+                corregir nombres de productos y estandarizar las categorías.
+            </p>
+        </div>
+
+        <div class="total-section">
+            TOTAL DATOS PROCESADOS: 100%
+        </div>
+
+        <div class="barcode">
+            |||| || | ||||| | || ||
+            <br>
+            <small style="font-size: 1rem; font-family: Arial;">DATOS-FAMILIARES-2024</small>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; font-size: 0.8rem;">
+            GRACIAS POR SU VISITA ANALÍTICA
+        </div>
     </div>
-</div>
 
 </body>
 </html>
